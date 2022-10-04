@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     case "GET":
       let data;
       try {
-        data = await usersService.findUserById(req.query.id);
+        data = await usersService.findUserById(<string>req.query.id);
       } catch (error) {
         data = { message: "User Not found." }
       }
