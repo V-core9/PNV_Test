@@ -1,49 +1,64 @@
+// Types and Interfaces
+import type { UserBase } from '..';
+import { UsersService } from '..';
+
+// Loading of things
 const bcrypt = require('bcrypt');
-//const { db } = require('../utils/db');
 import db from '../utils/db';
 
 
-const usersService = {
+const listUsers = () => {
+  return db.user.findMany();
+};
 
-  listUsers() {
-    return db.user.findMany();
-  },
+const findUserByEmail = (email: string) => {
+  return db.user.findUnique({
+    where: {
+      email,
+    },
+  });
+};
 
-  findUserByEmail(email: string) {
-    return db.user.findUnique({
-      where: {
-        email,
-      },
-    });
-  },
+const findUserById = (id: string) => {
+  return db.user.findUnique({
+    where: {
+      id,
+    },
+  });
+};
 
-  findUserById(id: string) {
-    return db.user.findUnique({
-      where: {
-        id,
-      },
-    });
-  },
+const updateUser = (user: UserBase) => {
+  if (user.password !== undefined) delete user.password;
+  return db.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      email: user.email,
+      isAdmin: user.isAdmin,
+    }
+  });
+};
 
-  updateUser(user: any) {
-    if (user.password !== undefined) delete user.password;
-    return db.user.update({
-      where: {
-        id: user.id,
-      },
-      data: {
-        email: user.email,
-        isAdmin: user.isAdmin,
-      }
-    });
-  },
+const createUserByEmailAndPassword = (user: UserBase) => {
+  const existingUser = findUserByEmail(user.email);
+  if (!existingUser) {
 
-  createUserByEmailAndPassword(user: any) {
     user.password = bcrypt.hashSync(user.password, 12);
     return db.user.create({
       data: user,
     });
+
   }
+  return Error("User already exists.");
+};
+
+const usersService: UsersService = {
+  listUsers: listUsers,
+  findUserByEmail: findUserByEmail,
+  findUserById: findUserById,
+  updateUser: updateUser,
+  createUserByEmailAndPassword: createUserByEmailAndPassword,
 };
 
 module.exports = usersService;

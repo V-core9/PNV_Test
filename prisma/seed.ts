@@ -1,39 +1,15 @@
-import { PrismaClient } from '@prisma/client'
+//const { db } = require('../utils/db');
+import db from '../utils/db';
+const { createUserByEmailAndPassword } = require('../services/users');
+const log = (...args: any) => console.log(...args);
 
-const prisma = new PrismaClient()
+(async () => {
+  console.log('Prisma Types', Object.keys(db));
 
-async function main() {
-  // Connect the client
-  await prisma.$connect()
+  const seedAdmin = await createUserByEmailAndPassword({ username: 'SlavkoV', email: 'slavko.vuletic92@gmail.com', password: '0123456789', isAdmin: true });
 
-  await prisma.user.create({
-    data: {
-      name: 'Rich',
-      email: 'hello@prisma.com',
-      posts: {
-        create: {
-          title: 'My first post',
-          body: 'Lots of really interesting stuff',
-          slug: 'my-first-post',
-        },
-      },
-    },
-  })
+  log('Seed Admin User', seedAdmin);
 
-  const allUsers = await prisma.user.findMany({
-    include: {
-      posts: true,
-    },
-  })
-  console.dir(allUsers, { depth: null })
-}
+  console.log('db.user object keys', Object.keys(db.user));
 
-main()
-  .then(async () => {
-    await prisma.$disconnect()
-  })
-  .catch(async (e) => {
-    console.error(e)
-    await prisma.$disconnect()
-    process.exit(1)
-  })
+})();
