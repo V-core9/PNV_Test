@@ -40,18 +40,24 @@ const updateUser = (user: UserBase) => {
   });
 };
 
-const createUserByEmailAndPassword = (user: UserBase) => {
-  const existingUser = findUserByEmail(user.email);
+const createUserByEmailAndPassword = async (user: UserBase) => {
+  let { email, password } = user;
+  const existingUser = await findUserByEmail(email);
   if (!existingUser) {
 
-    user.password = bcrypt.hashSync(user.password, 12);
+    password = bcrypt.hashSync(password, 12);
     return db.user.create({
-      data: user,
+      data: {
+        email,
+        password
+      },
     });
 
   }
-  return Error("User already exists.");
+
+  return false;
 };
+
 
 const usersService: UsersService = {
   listUsers: listUsers,

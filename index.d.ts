@@ -11,6 +11,6 @@ export interface UsersService {
   listUsers: (params: unknown) => UserBase[],
   findUserByEmail: (email: string) => UserBase,
   findUserById: (id: string) => UserBase,
-  updateUser: (args: UserBase) => UserBase,
-  createUserByEmailAndPassword: ({ email: string, password: string }) => UserBase
+  updateUser: (args: UserBase) => Promise<UserBase>,
+  createUserByEmailAndPassword: ({ email: string, password: string }) => Promise<UserBase | Error>
 }
