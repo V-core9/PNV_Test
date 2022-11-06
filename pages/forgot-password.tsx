@@ -16,7 +16,7 @@ import Head from 'next/head';
 
 import Copyright from '../components/Copyright';
 
-function onChange(value) {
+function onChange(value: any) {
   console.log("Captcha value:", value);
 }
 
