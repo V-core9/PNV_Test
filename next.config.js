@@ -11,6 +11,13 @@ const nextConfig = {
   poweredByHeader: false,
   // CORS
   crossOrigin: 'anonymous',
-}
+  // SourceMaps
+  productionBrowserSourceMaps: true,
+  // internationalization
+  i18n: {
+    locales: ['en'],
+    defaultLocale: 'en',
+  },
+};
 
 module.exports = nextConfig;
