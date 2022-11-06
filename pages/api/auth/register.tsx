@@ -86,40 +86,23 @@ const { createUserByEmailAndPassword, findUserByEmail } = usersService;
  *               $ref: '#/components/schemas/NewAuth'
 */
 export default async function handler(req: NextApiRequest, res: NextApiResponse<UserBase | UserBase[] | { message: string, status?: string }>) {
-  console.time(`${req.method}::${req.url} `)
+  //console.time(`${req.method}::${req.url} `)
   switch (req.method) {
     case "POST":
-      console.log(req.body);
-
       try {
-        const { email, password } = req.body;
-        if (!email || !password) {
-          throw new Error('You must provide an email and a password.');
-        }
-
-        const existingUser = await findUserByEmail(email);
-
-        if (existingUser) {
-          throw new Error('Email already in use.');
-        }
-
-        const user: any = await createUserByEmailAndPassword({ email, password, username: req.body.username });
-
-        if (!user) {
-          throw new Error('Failed to register user.');
-        }
-
-        res.status(200).json(user);
+        //console.log(req.body);
+        const user: any = await createUserByEmailAndPassword({ ...req.body });
+        delete user.password;
+        res.status(200).json({ ...user });
       } catch (err: any) {
         res.status(400).json({ status: 'error', message: err.message })
       }
-
       break
 
     default:
       res.status(400).json({ status: 'error', message: "Unsupported request method." })
       break;
   }
-  console.timeEnd(`${req.method}::${req.url} `)
+  //console.timeEnd(`${req.method}::${req.url} `)
 
 }
