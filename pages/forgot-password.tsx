@@ -11,8 +11,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import ReCAPTCHA from "react-google-recaptcha";
+import Head from 'next/head';
 
 import Copyright from '../components/Copyright';
+
+function onChange(value) {
+  console.log("Captcha value:", value);
+}
+
 
 const theme = createTheme();
 
@@ -28,6 +35,13 @@ const ForgotPassword: NextPage = () => {
 
   return (
     <ThemeProvider theme={theme}>
+
+      <Head>
+        <title>V-core9 - Forgot Password</title>
+        <meta name="description" content="Forgot Password Page Spaceholder" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -55,6 +69,10 @@ const ForgotPassword: NextPage = () => {
               autoComplete="email"
               autoFocus
             />
+            <ReCAPTCHA
+              sitekey="6LfHXuIiAAAAAEzbAaQesaRBGMW-Fu5vEY_s7mwC"
+              onChange={onChange}
+            />
             <Button
               type="submit"
               fullWidth
@@ -72,8 +90,8 @@ const ForgotPassword: NextPage = () => {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
+      <Copyright sx={{ mt: 8, mb: 4, padding: 1 }} />
     </ThemeProvider>
   );
 }

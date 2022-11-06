@@ -20,6 +20,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import Head from 'next/head';
 
 import Copyright from '../components/Copyright';
 
@@ -87,6 +88,13 @@ const RegisterPage: NextPage = () => {
 
   return (
     <ThemeProvider theme={theme}>
+
+      <Head>
+        <title>V-core9 - Register Account</title>
+        <meta name="description" content="Register Account Page Description Spaceholder" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -192,8 +200,8 @@ const RegisterPage: NextPage = () => {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
+      <Copyright sx={{ mt: 5, padding: 1 }} />
     </ThemeProvider>
   );
 }

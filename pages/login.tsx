@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Head from 'next/head';
 
 import Copyright from '../components/Copyright';
 
@@ -31,6 +32,13 @@ const LoginPage: NextPage = () => {
 
   return (
     <ThemeProvider theme={theme}>
+
+      <Head>
+        <title>V-core9 - Login</title>
+        <meta name="description" content="Login Page Description Spaceholder" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -94,8 +102,8 @@ const LoginPage: NextPage = () => {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
+      <Copyright sx={{ mt: 8, mb: 4, padding: 1 }} />
     </ThemeProvider>
   );
 }
