@@ -7,7 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   console.time(`${req.method}::${req.url} `)
   switch (req.method) {
     case "GET":
-      res.status(200).json(await listUsers({}))
+      res.status(200).json(await listUsers({}));
       break;
 
     case "POST":

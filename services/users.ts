@@ -3,6 +3,7 @@ import type { UserBase } from '..';
 import { UsersService } from '..';
 
 // Loading of things
+const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcrypt');
 import db from '../utils/db';
 
@@ -42,14 +43,20 @@ const updateUser = (user: UserBase) => {
 
 const createUserByEmailAndPassword = async (user: UserBase) => {
   let { email, password } = user;
+
+  const username: string = user.username || uuidv4();
+
   const existingUser = await findUserByEmail(email);
   if (!existingUser) {
 
     password = bcrypt.hashSync(password, 12);
+
     return db.user.create({
       data: {
         email,
-        password
+        password: <string>password,
+        username,
+        isAdmin: false
       },
     });
 
@@ -59,12 +66,12 @@ const createUserByEmailAndPassword = async (user: UserBase) => {
 };
 
 
-const usersService: UsersService = {
-  listUsers: listUsers,
-  findUserByEmail: findUserByEmail,
-  findUserById: findUserById,
-  updateUser: updateUser,
-  createUserByEmailAndPassword: createUserByEmailAndPassword,
+const usersService = {
+  listUsers,
+  findUserByEmail,
+  findUserById,
+  updateUser,
+  createUserByEmailAndPassword,
 };
 
 module.exports = usersService;

@@ -12,5 +12,11 @@ export interface UsersService {
   findUserByEmail: (email: string) => UserBase,
   findUserById: (id: string) => UserBase,
   updateUser: (args: UserBase) => Promise<UserBase>,
-  createUserByEmailAndPassword: ({ email: string, password: string }) => Promise<UserBase | Error>
+  createUserByEmailAndPassword: (UserBase) => Promise<UserBase | Error>
+}
+
+
+export interface AuthJWT {
+  accessToken: string,
+  refreshToken: string,
 }

@@ -1,6 +1,16 @@
 //const { db } = require('../utils/db');
 import db from '../utils/db';
+const { v4: uuidv4 } = require('uuid');
 const { createUserByEmailAndPassword } = require('../services/users');
+const {
+  addRefreshTokenToWhitelist: addRefreshTokenToWhitelist,
+  findRefreshTokenById: findRefreshTokenById,
+  deleteRefreshToken: deleteRefreshToken,
+  revokeTokens: revokeTokens
+} = require('../services/auth');
+
+import jwtUtil from '../utils/jwt';
+
 const log = (...args: any) => console.log(...args);
 
 (async () => {
@@ -11,5 +21,10 @@ const log = (...args: any) => console.log(...args);
   log('Seed Admin User', seedAdmin);
 
   console.log('db.user object keys', Object.keys(db.user));
+
+  const jtiSeed = uuidv4();
+  const seedRefreshToken = await addRefreshTokenToWhitelist({ jti: jtiSeed, refreshToken: jwtUtil.generateTokens(seedAdmin, jtiSeed), userId: seedAdmin.id });
+
+  log('Seed Admin seedRefreshToken', seedRefreshToken);
 
 })();
