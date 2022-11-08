@@ -11,6 +11,14 @@ export interface UsersService {
   listUsers: (params: unknown) => UserBase[],
   findUserByEmail: (email: string) => UserBase,
   findUserById: (id: string) => UserBase,
+  findUserByUsername: (username: string) => Promise<UserBase | null>,
   updateUser: (args: UserBase) => Promise<UserBase>,
-  createUserByEmailAndPassword: ({ email: string, password: string }) => Promise<UserBase | Error>
+  createUserByEmailAndPassword: (UserBase) => Promise<UserBase | Error>,
+  countUsers: () => Promise<Number>,
+}
+
+
+export interface AuthJWT {
+  accessToken: string,
+  refreshToken: string,
 }
