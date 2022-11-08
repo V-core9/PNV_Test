@@ -24,6 +24,7 @@ import Link from 'next/link'
 import Head from 'next/head';
 
 import Copyright from '../components/Copyright';
+import DocHead from '../components/DocHead';
 
 const drawerWidth = 240;
 
@@ -121,12 +122,11 @@ const Application: NextPage = (props: Props) => {
 
   return (
     <Box sx={{ display: 'flex' }}>
+      <DocHead
+        title="V-core9 - Application Root"
+        description="Application Root Page Description Spaceholder"
+      />
 
-      <Head>
-        <title>V-core9 - Application Root</title>
-        <meta name="description" content="Application Root Page Description Spaceholder" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
 
       <CssBaseline />
       <AppBar

@@ -20,9 +20,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import Head from 'next/head';
 
 import Copyright from '../components/Copyright';
+import DocHead from '../components/DocHead';
 
 const theme = createTheme();
 
@@ -89,11 +89,11 @@ const RegisterPage: NextPage = () => {
   return (
     <ThemeProvider theme={theme}>
 
-      <Head>
-        <title>V-core9 - Register Account</title>
-        <meta name="description" content="Register Account Page Description Spaceholder" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+
+      <DocHead
+        title="V-core9 - Register Account"
+        description="Register Account Page Description Spaceholder"
+      />
 
       <Container component="main" maxWidth="xs">
         <CssBaseline />

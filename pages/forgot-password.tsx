@@ -12,9 +12,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ReCAPTCHA from "react-google-recaptcha";
-import Head from 'next/head';
 
 import Copyright from '../components/Copyright';
+import DocHead from '../components/DocHead';
 
 function onChange(value: any) {
   console.log("Captcha value:", value);
@@ -36,11 +36,11 @@ const ForgotPassword: NextPage = () => {
   return (
     <ThemeProvider theme={theme}>
 
-      <Head>
-        <title>V-core9 - Forgot Password</title>
-        <meta name="description" content="Forgot Password Page Spaceholder" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <DocHead
+        title="V-core9 - Forgot Password"
+        description="Forgot Password Page Spaceholder"
+      />
+
 
       <Container component="main" maxWidth="xs">
         <CssBaseline />
