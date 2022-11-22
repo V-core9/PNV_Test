@@ -4,6 +4,13 @@
 import db from '../utils/db';
 
 
+
+
+const listPages = (params: any = {}) => {
+
+  return db.page.findMany({});
+};
+
 const findPageBySlug = (slug: string) => {
   return db.page.findUnique({
     where: {
@@ -20,7 +27,8 @@ const createNewPage = async (page: any) => {
 
 const pagesService = {
   findPageBySlug,
-  createNewPage
+  createNewPage,
+  listPages,
 };
 
 module.exports = pagesService;
