@@ -1,8 +1,21 @@
-import React from "react"
+import * as React from 'react';
 import { GetServerSideProps } from "next"
+import type { NextPage } from 'next';
 import pagesService from '../services/pages';
 const { findPageBySlug } = pagesService;
 import DocHead from '../components/DocHead';
+import ResponsiveAppBar from '../components/ResponsiveAppBar';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import CssBaseline from '@mui/material/CssBaseline';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Fab from '@mui/material/Fab';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import Fade from '@mui/material/Fade';
+import PageLayout from '../components/PageLayout';
 
 export const getServerSideProps: GetServerSideProps = async ({ params, res }: any) => {
   res.setHeader(
@@ -14,20 +27,12 @@ export const getServerSideProps: GetServerSideProps = async ({ params, res }: an
   return ((!page) ? { notFound: true, } : { props: JSON.parse(JSON.stringify(page)), });
 }
 
-const SingleUserPage: React.FC<any> = (props = {}) => {
-  let { id, slug, title, body, description } = props;
+const PageBySlug: NextPage<any> = (props = {}) => {
   return (
-    <div>
-
-      <DocHead
-        title={title}
-        description={description}
-      />
-
-      <h2>{title}</h2>
-      <div dangerouslySetInnerHTML={{ __html: body }}></div>
-    </div>
+    <>
+      <PageLayout {...props} />
+    </>
   )
 }
 
-export default SingleUserPage;
+export default PageBySlug;

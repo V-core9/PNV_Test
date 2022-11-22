@@ -21,8 +21,7 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
-import Copyright from '../components/Copyright';
-import DocHead from '../components/DocHead';
+import PageLayout from '../components/PageLayout';
 
 const theme = createTheme();
 
@@ -87,16 +86,10 @@ const RegisterPage: NextPage = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
 
-
-      <DocHead
-        title="V-core9 - Register Account"
-        description="Register Account Page Description Spaceholder"
-      />
+    <PageLayout title="V-core9 - Register Account" description="Register Account Page Description Spaceholder" >
 
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 8,
@@ -201,8 +194,8 @@ const RegisterPage: NextPage = () => {
           </Box>
         </Box>
       </Container>
-      <Copyright sx={{ mt: 5, padding: 1 }} />
-    </ThemeProvider>
+
+    </PageLayout>
   );
 }
 
