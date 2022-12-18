@@ -1,6 +1,6 @@
 
 
-export const createGithubInsides = (auth:string) => {
+export const createGithubInsides = (auth:string|null) => {
   const { Octokit } = require("@octokit/rest");
 
   const octokit = new Octokit({
