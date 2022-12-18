@@ -51,8 +51,17 @@ interface Props {
   window?: () => Window;
   children?: ReactElement;
   recaptchaKey?: string;
+  GITHUB_AUTH?: string;
 }
 
+interface UserInfoInterface {
+  data: null | any,
+  error?: string,
+}
+interface UserReporsInterface {
+  list: null | any,
+  error?: string,
+}
 
 export async function getStaticProps(context: any) {
   return {
@@ -66,9 +75,11 @@ export async function getStaticProps(context: any) {
 const GithubInsidesPage: NextPage = (props: Props) => {
 
   const [isLoading, setIsLoading] = useState(false);
-  const [userInfo, setUserInfo] = useState({ data: null });
-  const [userRepos, setUserRepos] = useState({ list: [] });
-  const [rateLimit, setRateLimit] = useState({});
+  const userInfoInit: UserInfoInterface = { data: null };
+  const [userInfo, setUserInfo] = useState(userInfoInit);
+  const userReposInit: UserReporsInterface = { list: [] };
+  const [userRepos, setUserRepos] = useState(userReposInit);
+  const [rateLimit, setRateLimit] = useState({ rate: {}} as any);
   const [reCaptcha, setReCaptcha] = useState(null);
   const [rcErr, setRcErr] = useState(false);
 
@@ -114,14 +125,15 @@ const GithubInsidesPage: NextPage = (props: Props) => {
 
   const getRateLimits = async () => setRateLimit(await githubInsides.getRateLimit());
 
-  const updateRateLimit = async (ev) => {
+  const updateRateLimit = async (ev:any) => {
     ev.preventDefault();
     getRateLimits();
   };
 
-  const getUserRepos = async (user, page = 1, per_page = 10) => {
+  const getUserRepos = async (user: any, page = 1, per_page = 10) => {
     try {
-      return setUserRepos({ list: await githubInsides.getUserRepos({ user, page, per_page }) });
+      const data = await githubInsides.getUserRepos({ user, page, per_page });
+      return setUserRepos({ list: data || [] });
     } catch (error) {
       return setUserRepos({ list: [], error: "Not Found" })
     }
@@ -306,19 +318,19 @@ const GithubInsidesPage: NextPage = (props: Props) => {
               {printUserStats(userInfo.data)}
             </Grid>
 
-            <Box sx={{ mt: 1, p: 1,  border: '1px dashed #20304040' }}>
+            <Box sx={{ mt: 1, p: 1, border: '1px dashed #20304040' }}>
               <Typography component="h2">Repositories:</Typography>
 
               {userRepos.list?.length > 0 && userRepos.list?.map(repo =>
                 // eslint-disable-next-line react/jsx-key
-                <Box sx={{ p: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', border: '1px dashed #20304040'}}>
+                <Box sx={{ p: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', border: '1px dashed #20304040' }}>
                   <Box sx={{ pt: 1, pb: 1, display: 'flex', gap: 1, alignItems: 'center' }}>
                     <Avatar>
                       <ImageIcon />
                     </Avatar>
                     <ListItemText primary={repo.name} secondary={repo.description || '⚠ Missing Repository Description'} />
                   </Box>
-                  <Box sx={{textAlign: 'right'}}>
+                  <Box sx={{ textAlign: 'right' }}>
                     <Typography component="p">Language: {repo.language}</Typography>
                     <Typography component="p">Size: {repo.size}</Typography>
                   </Box>
