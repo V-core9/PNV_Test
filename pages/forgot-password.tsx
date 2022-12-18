@@ -21,12 +21,12 @@ const theme = createTheme();
 export async function getStaticProps(context:any) {
   return {
     props: {
-      recaptchaKey: process.env.RECAPTCHA_KEY
+      recaptchaKey: process.env.RECAPTCHA_KEY || null
     }, // will be passed to the page component as props
   }
 }
 
-const ForgotPassword: NextPage = ({ recaptchaKey }) => {
+const ForgotPassword: NextPage = ({ recaptchaKey = null }) => {
 
   const [reCaptcha, setReCaptcha] = React.useState(null);
 
@@ -69,10 +69,10 @@ const ForgotPassword: NextPage = ({ recaptchaKey }) => {
               autoComplete="email"
               autoFocus
             />
-            <ReCAPTCHA
+            {recaptchaKey && <ReCAPTCHA
               sitekey={recaptchaKey}
               onChange={setReCaptcha}
-            />
+            />}
             <Button
               type="submit"
               fullWidth
