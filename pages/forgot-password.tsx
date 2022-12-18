@@ -18,7 +18,7 @@ import PageLayout from '../components/PageLayout';
 
 const theme = createTheme();
 
-export async function getStaticProps(context) {
+export async function getStaticProps(context:any) {
   return {
     props: {
       recaptchaKey: process.env.RECAPTCHA_KEY
