@@ -51,7 +51,7 @@ interface Props {
   window?: () => Window;
   children?: ReactElement;
   recaptchaKey?: string;
-  GITHUB_AUTH?: string;
+  GITHUB_AUTH: string|null;
 }
 
 interface UserInfoInterface {
