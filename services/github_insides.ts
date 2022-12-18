@@ -45,7 +45,7 @@ export const createGithubInsides = (auth:string) => {
 
         const total_repos_pages = Math.trunc(repos_count / per_page) + 1;
 
-        let repos = [];
+        let repos:any = [];
 
         const { data: foundRepos } = await octokit.rest.repos.listForUser({
           username: user.login,
