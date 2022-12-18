@@ -2,7 +2,9 @@
 //require('dotenv').config();
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { getUserInfo } from '../../../../services/github_insides';
+import { createGithubInsides } from '../../../../services/github_insides';
+
+const { getUserInfo } = createGithubInsides(process.env.GITHUB_AUTH || null);
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
