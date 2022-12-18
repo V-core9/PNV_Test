@@ -39,6 +39,8 @@ const ForgotPassword: NextPage = (props:any) => {
     });
   };
 
+  const handleChange = (token:any) => setReCaptcha(token);
+
   return (
 
     <PageLayout title="V-core9 - Forgot Password" description="Forgot Password Page Spaceholder" >
@@ -71,7 +73,7 @@ const ForgotPassword: NextPage = (props:any) => {
             />
             {recaptchaKey && <ReCAPTCHA
               sitekey={recaptchaKey}
-              onChange={setReCaptcha}
+              onChange={handleChange}
             />}
             <Button
               type="submit"
