@@ -28,7 +28,7 @@ export async function getStaticProps(context:any) {
 
 const ForgotPassword: NextPage = (props:any) => {
   const recaptchaKey = props.recaptchaKey || null;
-  const [reCaptcha, setReCaptcha] = React.useState(false);
+  const [reCaptcha, setReCaptcha] = React.useState('');
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
