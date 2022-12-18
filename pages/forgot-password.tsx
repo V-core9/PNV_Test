@@ -26,8 +26,8 @@ export async function getStaticProps(context:any) {
   }
 }
 
-const ForgotPassword: NextPage = ({ recaptchaKey = null }) => {
-
+const ForgotPassword: NextPage = (props:any) => {
+  const recaptchaKey = props.recaptchaKey || null;
   const [reCaptcha, setReCaptcha] = React.useState(null);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
