@@ -298,7 +298,7 @@ const GithubInsidesPage: NextPage = (props: Props) => {
             <Box sx={{ mt: 1, p: 1, border: '1px dashed #20304040' }}>
               <Typography component="h2">Repositories:</Typography>
 
-              {userRepos.list?.length > 0 && userRepos.list?.map(repo =>
+              {userRepos.list?.length > 0 && userRepos.list?.map((repo:any) =>
                 // eslint-disable-next-line react/jsx-key
                 <Box sx={{ p: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', border: '1px dashed #20304040' }}>
                   <Box sx={{ pt: 1, pb: 1, display: 'flex', gap: 1, alignItems: 'center' }}>
