@@ -1,6 +1,6 @@
 
 
-export const createGithubInsides = (auth) => {
+export const createGithubInsides = (auth:string) => {
   const { Octokit } = require("@octokit/rest");
 
   const octokit = new Octokit({
@@ -15,7 +15,7 @@ export const createGithubInsides = (auth) => {
     },
 
 
-    getUserInfo: async ({ username }) => {
+    getUserInfo: async ({ username }:any) => {
 
       username = String(username).toLowerCase();
 
@@ -35,7 +35,7 @@ export const createGithubInsides = (auth) => {
     },
 
 
-    getUserRepos: async ({ user, page = 1, per_page = 50 }) => {
+    getUserRepos: async ({ user, page = 1, per_page = 50 }:any) => {
 
       console.log('Fetching user data', user);
       // Else we proceed with making the request
@@ -71,7 +71,7 @@ export const createGithubInsides = (auth) => {
       //console.log(user);
       const { repos } = user;
 
-      let languages = [];
+      let languages:any = [];
 
       for (let i = 0; i < repos.length; i++) {
 
