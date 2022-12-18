@@ -13,37 +13,39 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ReCAPTCHA from "react-google-recaptcha";
 
-import Copyright from '../components/Copyright';
-import DocHead from '../components/DocHead';
-
-function onChange(value: any) {
-  console.log("Captcha value:", value);
-}
+import PageLayout from '../components/PageLayout';
 
 
 const theme = createTheme();
 
-const ForgotPassword: NextPage = () => {
+export async function getStaticProps(context:any) {
+  return {
+    props: {
+      recaptchaKey: process.env.RECAPTCHA_KEY || null
+    }, // will be passed to the page component as props
+  }
+}
+
+const ForgotPassword: NextPage = (props:any) => {
+  const recaptchaKey = props.recaptchaKey || null;
+  const [reCaptcha, setReCaptcha] = React.useState('');
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
-      password: data.get('password'),
+      recaptcha: reCaptcha
     });
   };
 
+  const handleChange = (token:any) => setReCaptcha(token);
+
   return (
-    <ThemeProvider theme={theme}>
 
-      <DocHead
-        title="V-core9 - Forgot Password"
-        description="Forgot Password Page Spaceholder"
-      />
-
+    <PageLayout title="V-core9 - Forgot Password" description="Forgot Password Page Spaceholder" >
 
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 8,
@@ -69,10 +71,10 @@ const ForgotPassword: NextPage = () => {
               autoComplete="email"
               autoFocus
             />
-            <ReCAPTCHA
-              sitekey="6LfHXuIiAAAAAEzbAaQesaRBGMW-Fu5vEY_s7mwC"
-              onChange={onChange}
-            />
+            {recaptchaKey && <ReCAPTCHA
+              sitekey={recaptchaKey}
+              onChange={handleChange}
+            />}
             <Button
               type="submit"
               fullWidth
@@ -91,8 +93,8 @@ const ForgotPassword: NextPage = () => {
           </Box>
         </Box>
       </Container>
-      <Copyright sx={{ mt: 8, mb: 4, padding: 1 }} />
-    </ThemeProvider>
+
+    </PageLayout>
   );
 }
 

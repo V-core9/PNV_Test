@@ -15,6 +15,7 @@
     "@faker-js/faker": "^7.6.0",
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.12",
+    "@octokit/rest": "^19.0.5",
     "@prisma/client": "^4.4.0",
     "bcrypt": "^5.0.1",
     "jsonwebtoken": "^8.5.1",

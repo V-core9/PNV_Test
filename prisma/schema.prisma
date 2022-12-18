@@ -18,6 +18,7 @@ model User {
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   isAdmin      Boolean        @default(false)
+  pages        Page[]
   posts        Post[]
   refreshToken RefreshToken[]
 }
@@ -30,6 +31,19 @@ model RefreshToken {
   revoked     Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model Page {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  slug        String   @unique
+  title       String
+  description String
+  body        String
+  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  authorId    String   @db.ObjectId
+  author      User     @relation(fields: [authorId], references: [id])
 }
 
 model Post {
