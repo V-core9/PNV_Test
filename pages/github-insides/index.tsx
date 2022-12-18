@@ -51,7 +51,7 @@ interface Props {
   window?: () => Window;
   children?: ReactElement;
   recaptchaKey?: string;
-  GITHUB_AUTH: string|null;
+  GITHUB_AUTH: string | null;
 }
 
 interface UserInfoInterface {
@@ -72,14 +72,14 @@ export async function getStaticProps(context: any) {
   }
 }
 
-const GithubInsidesPage: NextPage = (props: Props) => {
+const GithubInsidesPage: NextPage<any> = (props: Props) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const userInfoInit: UserInfoInterface = { data: null };
   const [userInfo, setUserInfo] = useState(userInfoInit);
   const userReposInit: UserReporsInterface = { list: [] };
   const [userRepos, setUserRepos] = useState(userReposInit);
-  const [rateLimit, setRateLimit] = useState({ rate: {}} as any);
+  const [rateLimit, setRateLimit] = useState({ rate: {} } as any);
   const [reCaptcha, setReCaptcha] = useState(null);
   const [rcErr, setRcErr] = useState(false);
 
@@ -125,7 +125,7 @@ const GithubInsidesPage: NextPage = (props: Props) => {
 
   const getRateLimits = async () => setRateLimit(await githubInsides.getRateLimit());
 
-  const updateRateLimit = async (ev:any) => {
+  const updateRateLimit = async (ev: any) => {
     ev.preventDefault();
     getRateLimits();
   };
@@ -192,7 +192,7 @@ const GithubInsidesPage: NextPage = (props: Props) => {
     )
   };
 
-  const printUserCard = (user:any) => {
+  const printUserCard = (user: any) => {
     return (
       <Grid item xs={12} sm={8}>
         <div style={{ display: 'flex' }}>
@@ -230,7 +230,7 @@ const GithubInsidesPage: NextPage = (props: Props) => {
     )
   }
 
-  const printUserStats = (user:any) => {
+  const printUserStats = (user: any) => {
     return (
       <>
         <Grid item xs={12} sm={4}>
@@ -298,7 +298,7 @@ const GithubInsidesPage: NextPage = (props: Props) => {
             <Box sx={{ mt: 1, p: 1, border: '1px dashed #20304040' }}>
               <Typography component="h2">Repositories:</Typography>
 
-              {userRepos.list?.length > 0 && userRepos.list?.map((repo:any) =>
+              {userRepos.list?.length > 0 && userRepos.list?.map((repo: any) =>
                 // eslint-disable-next-line react/jsx-key
                 <Box sx={{ p: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', border: '1px dashed #20304040' }}>
                   <Box sx={{ pt: 1, pb: 1, display: 'flex', gap: 1, alignItems: 'center' }}>
