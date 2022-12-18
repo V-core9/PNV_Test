@@ -147,29 +147,6 @@ const GithubInsidesPage: NextPage = (props: Props) => {
   console.info('USER_INFO', userInfo)
   console.info('USER_REPOS', userRepos)
 
-  const debugLimit = () => {
-    return (
-      <Grid container style={{ color: 'black' }}>
-        <Grid item xs={12} sm={2}>
-          🏁 Rate Limit
-        </Grid>
-        {rateLimit.rate && Object.keys(rateLimit.rate).map(key => {
-          return (
-            // eslint-disable-next-line react/jsx-key
-            <Grid item xs={12} sm={2}>
-              {key} : {JSON.stringify(rateLimit.rate[key])}
-            </Grid>
-          )
-        })}
-        <Grid item xs={12} sm={2}>
-          <Button component='button' onClick={updateRateLimit} title="Refresh Rate Limit" >🔄</Button>
-
-        </Grid>
-      </Grid>
-    )
-  }
-
-
   const searchForm = () => {
     return (
       <Box component="form" onSubmit={handleSubmit} noValidate >
@@ -215,7 +192,7 @@ const GithubInsidesPage: NextPage = (props: Props) => {
     )
   };
 
-  const printUserCard = (user) => {
+  const printUserCard = (user:any) => {
     return (
       <Grid item xs={12} sm={8}>
         <div style={{ display: 'flex' }}>
@@ -253,7 +230,7 @@ const GithubInsidesPage: NextPage = (props: Props) => {
     )
   }
 
-  const printUserStats = (user) => {
+  const printUserStats = (user:any) => {
     return (
       <>
         <Grid item xs={12} sm={4}>
